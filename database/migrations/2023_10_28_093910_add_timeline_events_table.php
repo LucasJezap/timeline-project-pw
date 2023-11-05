@@ -14,10 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamp('start_date');
             $table->timestamp('end_date')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('is_public');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

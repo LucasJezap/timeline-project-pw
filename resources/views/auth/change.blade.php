@@ -33,7 +33,7 @@
                         @if($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
-                                    <?php foreach ($errors->all() as $error): ?>
+                                        <?php foreach ($errors->all() as $error): ?>
                                     <li>{!! $error !!}</li>
                                     <?php endforeach; ?>
                                 </ul>
@@ -63,12 +63,14 @@
                         </div>
                         <div class="form-group last mb-3">
                             <label for="new_password_confirmation">Confirm New Password</label>
-                            <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation">
+                            <input type="password" class="form-control" id="new_password_confirmation"
+                                   name="new_password_confirmation">
                         </div>
 
                         <input type="submit" value="Change Password" class="btn btn-block btn-primary">
 
-                        <span class="d-block text-center my-4 text-muted"><a href="{{route('login')}}" class="forgot-pass">Already a user? Sign in</a></span>
+                        <span class="d-block text-center my-4 text-muted"><a href="{{route('login')}}"
+                                                                             class="forgot-pass">Already a user? Sign in</a></span>
                     </form>
                 </div>
             </div>

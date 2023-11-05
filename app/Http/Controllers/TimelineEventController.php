@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryEditRequest;
+use App\Http\Requests\EventEditRequest;
 use App\Models\Category;
 use App\Models\TimelineEvent;
 use App\Models\TimelineEventCategory;
@@ -213,8 +215,10 @@ class TimelineEventController extends Controller
         return view('event', compact('user', 'timeline_event', 'add_new'));
     }
 
-    public function addEvent(Request $request): RedirectResponse
+    public function addEvent(EventEditRequest $request): RedirectResponse
     {
+        $request->validated();
+
         $event = new TimelineEvent;
         $event->user_id = $request->user()->id;
         $event->title = $request['title'];
@@ -225,20 +229,24 @@ class TimelineEventController extends Controller
         $event->image = "";
         $event->save();
 
-        foreach ($request['category'] as $category_name) {
-            $category = Category::where('name', $category_name)->first();
+        if ($request['category'] !== null) {
+            foreach ($request['category'] as $category_name) {
+                $category = Category::where('name', $category_name)->first();
 
-            $eventCategory = new TimelineEventCategory;
-            $eventCategory->timeline_event_id = $event->id;
-            $eventCategory->category_id = $category->id;
-            $eventCategory->save();
+                $eventCategory = new TimelineEventCategory;
+                $eventCategory->timeline_event_id = $event->id;
+                $eventCategory->category_id = $category->id;
+                $eventCategory->save();
+            }
         }
 
         return redirect()->route('getEventDetails', $event);
     }
 
-    public function editEvent($event_id, Request $request): RedirectResponse
+    public function editEvent($event_id, EventEditRequest $request): RedirectResponse
     {
+        $request->validated();
+
         $event = TimelineEvent::where('id', $event_id)->first();
         if ($event !== null) {
             $event->title = $request['title'];
@@ -271,8 +279,10 @@ class TimelineEventController extends Controller
         return view('category', compact('user', 'category', 'add_new'));
     }
 
-    public function addCategory(Request $request): RedirectResponse
+    public function addCategory(CategoryEditRequest $request): RedirectResponse
     {
+        $request->validated();
+
         $category = new Category;
         $category->name = $request['name'];
         $category->description = $request['description'];
@@ -282,8 +292,10 @@ class TimelineEventController extends Controller
         return redirect()->route('getCategoryDetails', $category);
     }
 
-    public function editCategory($category_id, Request $request): RedirectResponse
+    public function editCategory($category_id, CategoryEditRequest $request): RedirectResponse
     {
+        $request->validated();
+
         $category = Category::where('id', $category_id)->first();
         if ($category !== null) {
             $category->name = $request['name'];

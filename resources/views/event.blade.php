@@ -1,18 +1,34 @@
 <?php $is_dashboard = false; $title = 'Timeline Manager - Event'; $links = ["welcome.css", "event.css"]; $is_auth = auth()->check(); ?>
 @include('top')
 <div class="container rounded bg-white mt-5">
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                    <?php foreach ($errors->all() as $error): ?>
+                <li>{!! $error !!}</li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    @endif
+    @if (\Session::has('success'))
+        <div class="alert alert-success">
+            <ul>
+                <li>{!! \Session::get('success') !!}</li>
+            </ul>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-4 border-right">
             <div class="row">
                 <div class="col-md-12 d-flex align-items-center py-3 border-bottom">
                     <img
-                            src="{{asset('storage/' . $timeline_event['event']->image)}}"
-                            onerror="this.onerror=null; this.src='{{ URL::to('images/undraw_poster.png') }}'"
-                            class="img-fluid" alt="">
+                        src="{{asset('storage/' . $timeline_event['event']->image)}}"
+                        onerror="this.onerror=null; this.src='{{ URL::to('images/undraw_poster.png') }}'"
+                        class="img-fluid" alt="">
                 </div>
                 <?php if ($is_auth && !$add_new) { ?>
                 <div
-                        class="col-md-12 d-flex justify-content-center align-items-center text-center py-3 border-bottom">
+                    class="col-md-12 d-flex justify-content-center align-items-center text-center py-3 border-bottom">
                     <div class="pl-sm-4 pl-2" id="img-section">
                         <b>Poster</b>
                         <p>Accepted file type .png.</p>
@@ -94,7 +110,8 @@
                             </div>
                         </div>
                         <div class="mt-5 text-right">
-                            <input type="submit" value="<?php echo $add_new? "Add": "Save"?> Event" class="btn btn-xs btn-info pull-right">
+                            <input type="submit" value="<?php echo $add_new? "Add": "Save"?> Event"
+                                   class="btn btn-xs btn-info pull-right">
                         </div>
                     @endauth
                 </div>

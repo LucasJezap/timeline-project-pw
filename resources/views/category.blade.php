@@ -1,6 +1,22 @@
 <?php $is_dashboard = false; $title = 'Timeline Manager - Category'; $links = ["welcome.css", "event.css"]; $is_auth = auth()->check(); ?>
 @include('top')
 <div class="container rounded bg-white mt-5">
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                    <?php foreach ($errors->all() as $error): ?>
+                <li>{!! $error !!}</li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    @endif
+    @if (\Session::has('success'))
+        <div class="alert alert-success">
+            <ul>
+                <li>{!! \Session::get('success') !!}</li>
+            </ul>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <form action="{{ $add_new? route('addCategory'): route('editCategory', $category->id) }}" method="post">
@@ -31,7 +47,8 @@
                     </div>
                     @auth
                         <div class="mt-5 text-right">
-                            <input type="submit" value="<?php echo $add_new? "Add": "Save"?> Category" class="btn btn-xs btn-info pull-right">
+                            <input type="submit" value="<?php echo $add_new? "Add": "Save"?> Category"
+                                   class="btn btn-xs btn-info pull-right">
                         </div>
                     @endauth
                 </div>
