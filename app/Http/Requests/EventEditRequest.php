@@ -15,7 +15,7 @@ class EventEditRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'string|max:2000',
+            'description' => 'max:2000',
             'start_date' => 'required',
         ];
     }

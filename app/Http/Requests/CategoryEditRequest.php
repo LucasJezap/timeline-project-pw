@@ -15,7 +15,7 @@ class CategoryEditRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'description' => 'string|max:2000',
+            'description' => 'max:2000',
             'color' => 'required',
         ];
     }

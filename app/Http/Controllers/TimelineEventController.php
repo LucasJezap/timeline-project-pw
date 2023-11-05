@@ -255,6 +255,29 @@ class TimelineEventController extends Controller
             $event->end_date = $request['end_date'];
             $event->is_public = $request['is_public'] === "on";
             $event->save();
+
+            if ($request['category'] !== null) {
+                $ids = [];
+                foreach ($request['category'] as $category_name) {
+                    $category = Category::where('name', $category_name)->first();
+
+                    $eventCategory = TimelineEventCategory::where('category_id', $category->id)->where('timeline_event_id', $event->id)->first();
+                    if ($eventCategory === null) {
+                        $eventCategory = new TimelineEventCategory;
+                        $eventCategory->timeline_event_id = $event->id;
+                        $eventCategory->category_id = $category->id;
+                        $eventCategory->save();
+                    }
+
+                    $ids[] = $eventCategory->id;
+                }
+
+                foreach (TimelineEventCategory::where('timeline_event_id', $event_id)->get() as $event_category) {
+                    if (!in_array($event_category->id, $ids, true)) {
+                        TimelineEventCategory::where('id', $event_category->id)->delete();
+                    }
+                }
+            }
         }
 
         return redirect()->route('getEventDetails', $event);

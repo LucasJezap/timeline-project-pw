@@ -20,7 +20,10 @@
         display: none !important;
     }
 
-    a[href]:after{content:none}}
+    a[href]:after {
+        content: none
+    }
+
 
     h1 {
         font-size: 24pt;
@@ -122,5 +125,4 @@
     li {
         line-height: 1.6em;
     }
-
 }
