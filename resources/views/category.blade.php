@@ -31,10 +31,11 @@
                     </div>
                     <label for="description">Description</label>
                     <div class="row mt-3" style="margin-bottom: 20px;">
-                        <div class="col-md-12"><input <?php if (!$is_auth) {
+                        <div class="col-md-12"><textarea <?php if (!$is_auth) {
                                 echo 'disabled';
                             } ?> type="text" class="form-control" id="description"
-                                                      name="description" value="<?= $category->description ?>">
+                                                         name="description"
+                                                         rows="3    "><?= $category->description ?></textarea>
                         </div>
                     </div>
                     <label for="color">Color</label>

@@ -113,7 +113,7 @@ class TimelineEventController extends Controller
                     continue;
                 }
 
-                if (($field_to_filter === 'title' || $field_to_filter === 'description') && !str_contains($event->$field_to_filter, $_COOKIE[$filterName])) {
+                if (($field_to_filter === 'title' || $field_to_filter === 'description') && !str_contains(strtolower($event->$field_to_filter), strtolower($_COOKIE[$filterName]))) {
                     $is_filtered_out = true;
                     break;
                 }
@@ -128,12 +128,12 @@ class TimelineEventController extends Controller
                     }
                 }
 
-                if ($field_to_filter === 'start_date' && $event->$field_to_filter > $_COOKIE[$filterName]) {
+                if ($field_to_filter === 'start_date' && $event->$field_to_filter <= $_COOKIE[$filterName]) {
                     $is_filtered_out = true;
                     break;
                 }
 
-                if ($field_to_filter === 'end_date' && $event->$field_to_filter < $_COOKIE[$filterName]) {
+                if ($field_to_filter === 'end_date' && $event->$field_to_filter >= $_COOKIE[$filterName]) {
                     $is_filtered_out = true;
                     break;
                 }

@@ -13,10 +13,10 @@
                     <img
                         src="{{asset('storage/' . $event['event']->image)}}"
                         onerror="this.onerror=null; this.src='{{ URL::to('images/undraw_poster.png') }}'"
-                        class="img-fluid" style="max-width: 25%; max-height: 40%" alt="">
+                        class="img-fluid" style="max-width: 25%; max-height: 50%" alt="">
                     <p class="small text-white-50 mb-4"><?= date('M j', strtotime($event['event']->start_date)) ?>
                         - <?= date('M j', strtotime($event['event']->end_date)) ?></p>
-                    <p><?= $event['event']->description ?></p>
+                    <p><?= count(explode('.', $event['event']->description)) > 3 ? substr($event['event']->description, 0, strpos($event['event']->description, '.', strpos($event['event']->description, '.') + 1)) . '...' : $event['event']->description ?></p>
                         <?php foreach ($event['categories'] as $category): ?>
                     <a href="{{route('getCategoryDetails', $category->id)}}"
                        class="btn-primary btn-md bg-transparent" style="border: none;"><h6

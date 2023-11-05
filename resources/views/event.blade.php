@@ -92,9 +92,14 @@
                                     aria-label="category"
                                     style="width:100%;">
                                 <?php foreach (\App\Http\Controllers\CategoryController::categoryList() as $key => $category): ?>
+                                @auth
                                 <option <?php if (in_array($category->name, array_column($timeline_event['categories']->toArray(), 'name'), true)) {
                                     echo "selected";
                                 } ?> value="<?= $category->name ?>"><?= $category->name ?></option>
+                                @endauth
+                                @guest
+                                    <?php if (in_array($category->name, array_column($timeline_event['categories']->toArray(), 'name'), true)): ?> <option value="<?= $category->name ?>"><?= $category->name ?></option><?php endif; ?>
+                                @endguest
                                 <?php endforeach; ?>
                             </select>
                         </div>

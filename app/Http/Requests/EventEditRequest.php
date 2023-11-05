@@ -14,7 +14,8 @@ class EventEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
+            'title' => 'required|string|max:255',
+            'description' => 'string|max:2000',
             'start_date' => 'required',
         ];
     }
