@@ -260,6 +260,13 @@ class TimelineEventController extends Controller
         return redirect()->route('getEventDetails', $event);
     }
 
+    public function deleteEvent($event_id): RedirectResponse
+    {
+        TimelineEvent::where('id', $event_id)->delete();
+
+        return redirect()->route('dashboard');
+    }
+
     public function getCategoryDetails($category_id, Request $request): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
     {
         $user = Auth::user();
@@ -305,5 +312,12 @@ class TimelineEventController extends Controller
         }
 
         return redirect()->route('getCategoryDetails', $category);
+    }
+
+    public function deleteCategory($category_id): RedirectResponse
+    {
+        Category::where('id', $category_id)->delete();
+
+        return redirect()->route('dashboard');
     }
 }

@@ -47,8 +47,7 @@
             </div>
         </div>
         <div class="col-md-8">
-            <form action="{{ $add_new? route('addEvent'): route('editEvent', $timeline_event['event']->id)}}"
-                  method="post">
+            <form method="post">
                 @csrf
                 <div class="p-3 py-5">
                     <label for="title">Title</label>
@@ -93,12 +92,14 @@
                                     style="width:100%;">
                                 <?php foreach (\App\Http\Controllers\CategoryController::categoryList() as $key => $category): ?>
                                 @auth
-                                <option <?php if (in_array($category->name, array_column($timeline_event['categories']->toArray(), 'name'), true)) {
-                                    echo "selected";
-                                } ?> value="<?= $category->name ?>"><?= $category->name ?></option>
+                                    <option <?php if (in_array($category->name, array_column($timeline_event['categories']->toArray(), 'name'), true)) {
+                                        echo "selected";
+                                    } ?> value="<?= $category->name ?>"><?= $category->name ?></option>
                                 @endauth
                                 @guest
-                                    <?php if (in_array($category->name, array_column($timeline_event['categories']->toArray(), 'name'), true)): ?> <option value="<?= $category->name ?>"><?= $category->name ?></option><?php endif; ?>
+                                        <?php if (in_array($category->name, array_column($timeline_event['categories']->toArray(), 'name'), true)): ?>
+                                    <option
+                                        value="<?= $category->name ?>"><?= $category->name ?></option><?php endif; ?>
                                 @endguest
                                 <?php endforeach; ?>
                             </select>
@@ -114,9 +115,18 @@
                                     } ?>>
                             </div>
                         </div>
+
                         <div class="mt-5 text-right">
-                            <input type="submit" value="<?php echo $add_new? "Add": "Save"?> Event"
-                                   class="btn btn-xs btn-info pull-right">
+                            <?php if (!$add_new): ?>
+                            <button type="submit" class="btn btn-danger submitBtn"
+                                    formaction="{{route('deleteEvent', $timeline_event['event']->id)}}">
+                                Delete Event
+                            </button>
+                            <?php endif; ?>
+                            <button type="submit" class="btn btn-info submitBtn"
+                                    formaction="{{ $add_new? route('addEvent'): route('editEvent', $timeline_event['event']->id)}}">
+                                <?php echo $add_new ? "Add" : "Save" ?> Event
+                            </button>
                         </div>
                     @endauth
                 </div>

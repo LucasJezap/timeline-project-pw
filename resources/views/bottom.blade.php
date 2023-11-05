@@ -118,7 +118,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12" style="padding-top: 2rem; margin-bottom: 20px">\
+                        <div class="col-md-12" style="padding-top: 2rem; margin-bottom: 20px">
                             <button type="submit" class="btn btn-primary submitBtn"
                                     formaction="{{route('setFilters')}}">
                                 Filter
@@ -127,6 +127,7 @@
                                     formaction="{{route('clearFilters')}}">
                                 Clear All Filters
                             </button>
+                        </div>
                     </form>
                 </div>
             </div>

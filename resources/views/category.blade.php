@@ -19,7 +19,7 @@
     @endif
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ $add_new? route('addCategory'): route('editCategory', $category->id) }}" method="post">
+            <form method="post">
                 @csrf
                 <div class="p-3 py-5">
                     <label for="name">Name</label>
@@ -48,8 +48,16 @@
                     </div>
                     @auth
                         <div class="mt-5 text-right">
-                            <input type="submit" value="<?php echo $add_new? "Add": "Save"?> Category"
-                                   class="btn btn-xs btn-info pull-right">
+                            <?php if (!$add_new): ?>
+                            <button type="submit" class="btn btn-danger submitBtn"
+                                    formaction="{{route('deleteCategory', $category->id)}}">
+                                Delete Category
+                            </button>
+                            <?php endif; ?>
+                            <button type="submit" class="btn btn-info submitBtn"
+                                    formaction="{{ $add_new? route('addCategory'): route('editCategory', $category->id) }}">
+                                <?php echo $add_new ? "Add" : "Save" ?> Category
+                            </button>
                         </div>
                     @endauth
                 </div>

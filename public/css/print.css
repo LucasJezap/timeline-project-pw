@@ -20,6 +20,8 @@
         display: none !important;
     }
 
+    a[href]:after{content:none}}
+
     h1 {
         font-size: 24pt;
     }
@@ -65,10 +67,6 @@
 
     a {
         page-break-inside: avoid
-    }
-
-    a[href^=http]:after {
-        content: " <" attr(href) "> ";
     }
 
     a:after > img {

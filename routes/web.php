@@ -49,9 +49,11 @@ Route::controller(TimelineEventController::class)->group(function () {
     Route::post('/timeline/{id}/upload', 'uploadPoster')->name('uploadPoster')->middleware('auth');
     Route::get('/timeline/add', 'addEventView')->name('addEventView')->middleware('auth');
     Route::post('/timeline/add', 'addEvent')->name('addEvent')->middleware('auth');
+    Route::post('/timeline/{id}/delete', 'deleteEvent')->name('deleteEvent')->middleware('auth');
     Route::post('/timeline/{id}/edit', 'editEvent')->name('editEvent')->middleware('auth');
     Route::get('/category/add', 'addCategoryView')->name('addCategoryView')->middleware('auth');
     Route::post('/category/add', 'addCategory')->name('addCategory')->middleware('auth');
+    Route::post('/category/{id}/delete', 'deleteCategory')->name('deleteCategory')->middleware('auth');
     Route::post('/category/{id}/edit', 'editCategory')->name('editCategory')->middleware('auth');
     Route::post('/timeline/filter/set', 'setFilters')->name('setFilters');
     Route::post('/timeline/filter/clear', 'clearFilters')->name('clearFilters');
