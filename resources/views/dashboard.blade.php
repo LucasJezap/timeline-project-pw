@@ -16,7 +16,7 @@
                         class="img-fluid" style="max-width: 25%; max-height: 50%" alt="">
                     <p class="small text-white-50 mb-4"><?= date('M j', strtotime($event['event']->start_date)) ?>
                         - <?= date('M j', strtotime($event['event']->end_date)) ?></p>
-                    <p><?= strlen($event['event']->description) > 230 ? strrev(explode(' ', strrev(substr($event['event']->description, 0, 230)), 2)[1]) . '...': $event['event']->description ?></p>
+                    <p><?= strlen($event['event']->description) > 160 ? strrev(explode(' ', strrev(substr($event['event']->description, 0, 160)), 2)[1]) . '...': $event['event']->description ?></p>
                         <?php foreach ($event['categories'] as $category): ?>
                     <a href="{{route('getCategoryDetails', $category->id)}}"
                        class="btn-primary btn-md bg-transparent" style="border: none;"><h6
