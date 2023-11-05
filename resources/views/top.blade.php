@@ -58,13 +58,13 @@
         @auth
         <li class="nav-item active">
             <a class="nav-link" href="{{ route('addEventView') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-film"></i>
                 <span>New Timeline Event</span></a>
         </li>
 
         <li class="nav-item active">
             <a class="nav-link" href="{{ route('addCategoryView') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-tags"></i>
                 <span>New Category</span></a>
         </li>
         @endauth
