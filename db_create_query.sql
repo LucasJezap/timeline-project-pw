@@ -74,9 +74,11 @@ CREATE TABLE `timeline`.`user_settings` (
                                             `notification_days_after` int NOT NULL,
                                             `created_at` timestamp NULL DEFAULT NULL,
                                             `updated_at` timestamp NULL DEFAULT NULL,
-                                            PRIMARY KEY (`id`)
+                                            PRIMARY KEY (`id`),
+                                            KEY `user_settings_user_id_foreign` (`user_id`),
+                                            CONSTRAINT `user_settings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `timeline`.`users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-INSERT INTO `timeline`.`user_settings` VALUES (1,2,1,7,'2023-11-05 19:59:38','2023-11-05 19:59:38');
+INSERT INTO `timeline`.`user_settings` VALUES (1,1,1,7,'2023-11-05 19:59:38','2023-11-05 19:59:38');
 CREATE TABLE `timeline`.`timeline_events` (
                                               `id` bigint unsigned NOT NULL AUTO_INCREMENT,
                                               `user_id` bigint unsigned NOT NULL,
